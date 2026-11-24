@@ -1,0 +1,859 @@
+/**
+ * MUHAMMED RAIHAN O.A - PORTFOLIO INTERACTIVITY ENGINE
+ * Features:
+ * - Dynamic Canvas Constellation / Particle Field
+ * - Interactive Developer Terminal (Raihan CLI)
+ * - Live SQL Query Execution Simulator
+ * - System Architecture & Schema Modals
+ * - Synthesizer Audio Effects (Web Audio API)
+ * - Theme Switcher & Persistence
+ * - Copy-to-Clipboard & Toast Engine
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initParticles();
+  initTypewriter();
+  initThemeSwitcher();
+  initAudioEffects();
+  initTerminal();
+  initProjectFilters();
+  initSqlLab();
+  initModals();
+  initContactActions();
+});
+
+/* ==========================================================================
+   1. CANVAS PARTICLES / CONSTELLATION BACKGROUND
+   ========================================================================== */
+function initParticles() {
+  const canvas = document.getElementById('canvas-particles');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  let width = (canvas.width = window.innerWidth);
+  let height = (canvas.height = window.innerHeight);
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  const numParticles = Math.min(Math.floor(window.innerWidth / 18), 70);
+  const particles = [];
+  const mouse = { x: null, y: null, maxDist: 140 };
+
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  window.addEventListener('mouseleave', () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  for (let i = 0; i < numParticles; i++) {
+    particles.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.7,
+      vy: (Math.random() - 0.5) * 0.7,
+      radius: Math.random() * 1.8 + 0.8,
+    });
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, width, height);
+    const accentColor = getComputedStyle(document.body).getPropertyValue('--accent-primary').trim() || '#10b981';
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0) p.x = width;
+      if (p.x > width) p.x = 0;
+      if (p.y < 0) p.y = height;
+      if (p.y > height) p.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.fill();
+
+      // Connect nearby particles
+      for (let j = i + 1; j < particles.length; j++) {
+        const p2 = particles[j];
+        const dx = p.x - p2.x;
+        const dy = p.y - p2.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 110) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 * (1 - dist / 110)})`;
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      }
+
+      // Connect to mouse cursor
+      if (mouse.x !== null && mouse.y !== null) {
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < mouse.maxDist) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `${accentColor}${Math.floor((1 - dist / mouse.maxDist) * 120).toString(16).padStart(2, '0')}`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(render);
+  }
+  render();
+}
+
+/* ==========================================================================
+   2. TYPEWRITER EFFECT
+   ========================================================================== */
+function initTypewriter() {
+  const el = document.getElementById('typewriter-text');
+  if (!el) return;
+
+  const roles = [
+    'Database-Driven System Architect',
+    'Full-Cycle Python & Java Developer',
+    'Relational SQL Modeling Specialist',
+    'MCA Scholar @ Marian College',
+    'Backend Logic & Clean Code Builder'
+  ];
+
+  let roleIdx = 0;
+  let charIdx = 0;
+  let isDeleting = false;
+  let speed = 90;
+
+  function type() {
+    const currentRole = roles[roleIdx];
+
+    if (isDeleting) {
+      el.textContent = currentRole.substring(0, charIdx - 1);
+      charIdx--;
+      speed = 40;
+    } else {
+      el.textContent = currentRole.substring(0, charIdx + 1);
+      charIdx++;
+      speed = 90;
+    }
+
+    if (!isDeleting && charIdx === currentRole.length) {
+      speed = 2200; // Pause at end
+      isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+      isDeleting = false;
+      roleIdx = (roleIdx + 1) % roles.length;
+      speed = 400;
+    }
+
+    setTimeout(type, speed);
+  }
+
+  type();
+}
+
+/* ==========================================================================
+   3. THEME SWITCHER
+   ========================================================================== */
+function initThemeSwitcher() {
+  const dots = document.querySelectorAll('.theme-dot');
+  const savedTheme = localStorage.getItem('raihan-theme') || 'emerald';
+
+  setTheme(savedTheme);
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const theme = dot.dataset.theme;
+      setTheme(theme);
+      playSound('beep');
+    });
+  });
+
+  function setTheme(theme) {
+    document.body.setAttribute('data-theme', theme);
+    localStorage.setItem('raihan-theme', theme);
+
+    dots.forEach(d => {
+      if (d.dataset.theme === theme) {
+        d.classList.add('active');
+      } else {
+        d.classList.remove('active');
+      }
+    });
+  }
+}
+
+/* ==========================================================================
+   4. SYNTHESIZER AUDIO EFFECTS (WEB AUDIO API)
+   ========================================================================== */
+let audioCtx = null;
+let soundEnabled = false;
+
+function initAudioEffects() {
+  const soundBtn = document.getElementById('sound-toggle');
+  if (!soundBtn) return;
+
+  soundBtn.addEventListener('click', () => {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    soundEnabled = !soundEnabled;
+    soundBtn.innerHTML = soundEnabled ? '🔊' : '🔇';
+    soundBtn.title = soundEnabled ? 'Mute SFX' : 'Enable SFX';
+    showToast(soundEnabled ? 'Interactive SFX Activated' : 'Audio SFX Muted');
+    if (soundEnabled) playSound('success');
+  });
+
+  // Attach sound to interactive elements
+  document.querySelectorAll('.btn, .term-pill, .filter-btn, .sql-tab-btn, .modal-close-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', () => playSound('hover'));
+    btn.addEventListener('click', () => playSound('click'));
+  });
+}
+
+function playSound(type) {
+  if (!soundEnabled || !audioCtx) return;
+  try {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    const now = audioCtx.currentTime;
+
+    if (type === 'hover') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(420, now);
+      gain.gain.setValueAtTime(0.015, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+      osc.start(now);
+      osc.stop(now + 0.05);
+    } else if (type === 'click') {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(650, now);
+      gain.gain.setValueAtTime(0.05, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } else if (type === 'success') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+      gain.gain.setValueAtTime(0.06, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+      osc.start(now);
+      osc.stop(now + 0.2);
+    } else if (type === 'beep') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(780, now);
+      gain.gain.setValueAtTime(0.04, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+      osc.start(now);
+      osc.stop(now + 0.1);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+/* ==========================================================================
+   5. INTERACTIVE DEVELOPER TERMINAL ("RAIHAN SHELL")
+   ========================================================================== */
+function initTerminal() {
+  const termBody = document.getElementById('terminal-body');
+  const termInput = document.getElementById('terminal-input');
+  if (!termBody || !termInput) return;
+
+  const commandHistory = [];
+  let historyIdx = -1;
+
+  const commands = {
+    help: () => `
+<span class="text-gradient">Available CLI Commands:</span>
+  • <span style="color:#10b981">about</span>       - Brief overview & professional philosophy
+  • <span style="color:#10b981">skills</span>      - Technical competency & programming languages
+  • <span style="color:#10b981">projects</span>    - Featured applications and production systems
+  • <span style="color:#10b981">schema</span>      - Visual ASCII Relational Database schemas
+  • <span style="color:#10b981">education</span>   - Academic credentials (MCA / BCA)
+  • <span style="color:#10b981">contact</span>     - Direct contact links & details
+  • <span style="color:#10b981">matrix</span>      - Stream matrix data rain
+  • <span style="color:#10b981">clear</span>       - Clear current console output
+`,
+    about: () => `
+<strong style="color:#fff">MUHAMMED RAIHAN O.A</strong> - Software Developer
+Location: Kerala, India | Open to Relocation & Remote Roles
+
+"Detail-oriented MCA student and aspiring Software Developer with a strong foundation in programming,
+databases, and structured problem-solving. Proficient in Python, Java, C++, and SQL, with hands-on
+experience designing and building complete, database-driven applications from requirement analysis
+through to working implementation."
+`,
+    skills: () => `
+<span style="color:#38bdf8">LANGUAGES:</span>
+  Python    [██████████████████░░] 90% (Backend, Scripting, Django)
+  SQL       [███████████████████░] 92% (Schema Modeling, Queries, Indexing)
+  Java      [███████████████░░░░░] 80% (OOP, Enterprise Architecture)
+  C++       [██████████████░░░░░░] 75% (Data Structures & Algorithms)
+
+<span style="color:#38bdf8">PLATFORMS & TOOLS:</span>
+  Linux CLI, Power BI, Relational DBMS (SQLite, PostgreSQL, MySQL), Git
+`,
+    projects: () => `
+<span style="color:#f59e0b">1. Agro Equipment Rental System</span> (02/2025 - 04/2025)
+   - Connecting farmers with machine owners, rental calendars & transparent rates.
+   - Core Stack: Python, SQL Data Layer, Relational Architecture.
+
+<span style="color:#f59e0b">2. E-Auction of Cardamom</span> (Personal Project)
+   - Real-time commodity auction engine with dynamic bidding logic & trade settlement.
+   - Core Stack: Python, SQL Data Layer, Real-time Pricing Logic.
+
+<span style="color:#f59e0b">3. Buy & Sell Hub – OLX Clone</span> (Personal Project)
+   - Full-featured classifieds marketplace with multi-image listings & direct chat.
+   - Core Stack: Django, Python, SQLite/SQL, Messaging Engine.
+`,
+    schema: () => `
+<span style="color:#10b981">Relational Schema Architecture (Buy & Sell Hub):</span>
+┌──────────────┐       ┌──────────────────────┐       ┌─────────────────────┐
+│   Category   │ 1───* │       Product        │ 1───* │    ProductImage     │
+├──────────────┤       ├──────────────────────┤       ├─────────────────────┤
+│ id (PK)      │       │ id (PK)              │       │ id (PK)             │
+│ name         │       │ seller_id (FK->User) │       │ product_id (FK)     │
+│ slug (UQ)    │       │ category_id (FK)     │       │ image (file)        │
+│ icon         │       │ title, slug, price   │       └─────────────────────┘
+└──────────────┘       │ location, condition  │
+                       │ status (active/sold) │       ┌─────────────────────┐
+                       └───────────┬──────────┘       │       Message       │
+                                   │                  ├─────────────────────┤
+                                   └────────────────* │ id (PK)             │
+                                                      │ sender_id (FK)      │
+                                                      │ recipient_id (FK)   │
+                                                      │ product_id (FK)     │
+                                                      │ content, is_read    │
+                                                      └─────────────────────┘
+`,
+    education: () => `
+🎓 <strong style="color:#fff">Master of Computer Applications (MCA)</strong> - In Progress
+   Marian College Kuttikkanam (Autonomous)
+
+🎓 <strong style="color:#fff">Bachelor of Computer Applications (BCA)</strong> - 06/2022 to 05/2025
+   M.E.S College, Erumely
+
+🎓 <strong style="color:#fff">Plus Two, Computer Science</strong> - 06/2020 to 03/2022
+   J.J Murphy HSS, Yendayar
+`,
+    contact: () => `
+📧 Email:    <a href="mailto:muhammedraihan6001@gmail.com" style="color:#10b981">muhammedraihan6001@gmail.com</a>
+📱 Phone:    <a href="tel:+916282727399" style="color:#10b981">+91 6282727399</a>
+💼 LinkedIn: <a href="https://linkedin.com/in/muhammed-raihan-oa-1a0810368" target="_blank" style="color:#38bdf8">linkedin.com/in/muhammed-raihan-oa-1a0810368</a>
+📍 Location: Kerala, India
+`,
+    matrix: () => {
+      runMatrixEffect();
+      return `<span style="color:#10b981">Entering Matrix stream... Click anywhere or press ESC to exit.</span>`;
+    },
+    clear: () => {
+      termBody.innerHTML = '';
+      return '';
+    }
+  };
+
+  function executeCommand(rawInput) {
+    const trimmed = rawInput.trim();
+    if (!trimmed) return;
+
+    commandHistory.push(trimmed);
+    historyIdx = commandHistory.length;
+
+    // Echo input
+    const promptEcho = document.createElement('div');
+    promptEcho.className = 'term-output-line';
+    promptEcho.innerHTML = `<span class="term-user">visitor@raihan</span>:<span class="term-path">~$</span> ${escapeHtml(trimmed)}`;
+    termBody.appendChild(promptEcho);
+
+    const cmdLower = trimmed.toLowerCase();
+    const resultDiv = document.createElement('div');
+    resultDiv.className = 'term-output-line';
+
+    if (commands[cmdLower]) {
+      const output = commands[cmdLower]();
+      if (cmdLower !== 'clear') {
+        resultDiv.innerHTML = output;
+        termBody.appendChild(resultDiv);
+      }
+    } else {
+      resultDiv.innerHTML = `<span style="color:#ef4444">Command not recognized: '${escapeHtml(trimmed)}'. Type <span style="color:#10b981;cursor:pointer" onclick="document.getElementById('terminal-input').value='help';document.getElementById('terminal-input').dispatchEvent(new KeyboardEvent('keydown',{'key':'Enter'}))">'help'</span> for instructions.</span>`;
+      termBody.appendChild(resultDiv);
+    }
+
+    termBody.scrollTop = termBody.scrollHeight;
+    termInput.value = '';
+    playSound('beep');
+  }
+
+  termInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      executeCommand(termInput.value);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (historyIdx > 0) {
+        historyIdx--;
+        termInput.value = commandHistory[historyIdx] || '';
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (historyIdx < commandHistory.length - 1) {
+        historyIdx++;
+        termInput.value = commandHistory[historyIdx] || '';
+      } else {
+        historyIdx = commandHistory.length;
+        termInput.value = '';
+      }
+    }
+  });
+
+  // Quick Action Pills
+  document.querySelectorAll('.term-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const cmd = pill.dataset.cmd;
+      termInput.value = cmd;
+      executeCommand(cmd);
+      termInput.focus();
+    });
+  });
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+/* Matrix Effect Easter Egg */
+function runMatrixEffect() {
+  const existing = document.getElementById('matrix-overlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'matrix-overlay';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100vw';
+  overlay.style.height = '100vh';
+  overlay.style.background = 'rgba(0, 0, 0, 0.95)';
+  overlay.style.zIndex = '99999';
+  overlay.style.cursor = 'pointer';
+
+  const mCanvas = document.createElement('canvas');
+  mCanvas.width = window.innerWidth;
+  mCanvas.height = window.innerHeight;
+  overlay.appendChild(mCanvas);
+  document.body.appendChild(overlay);
+
+  const mCtx = mCanvas.getContext('2d');
+  const chars = '01MUHAMMEDRAIHAN0101PYTHONSQLJAVA';
+  const fontSize = 16;
+  const columns = Math.floor(mCanvas.width / fontSize);
+  const drops = Array(columns).fill(1);
+
+  const interval = setInterval(() => {
+    mCtx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+    mCtx.fillRect(0, 0, mCanvas.width, mCanvas.height);
+
+    mCtx.fillStyle = '#10b981';
+    mCtx.font = `${fontSize}px monospace`;
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = chars.charAt(Math.floor(Math.random() * chars.length));
+      mCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > mCanvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+  }, 33);
+
+  function closeMatrix() {
+    clearInterval(interval);
+    overlay.remove();
+  }
+
+  overlay.addEventListener('click', closeMatrix);
+  window.addEventListener('keydown', function escHandler(e) {
+    if (e.key === 'Escape') {
+      closeMatrix();
+      window.removeEventListener('keydown', escHandler);
+    }
+  });
+}
+
+/* ==========================================================================
+   6. PROJECT FILTERS
+   ========================================================================== */
+function initProjectFilters() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      cards.forEach(card => {
+        const cat = card.dataset.category;
+        if (filter === 'all' || cat === filter) {
+          card.style.display = 'flex';
+          card.style.animation = 'fadeIn 0.4s ease forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+/* ==========================================================================
+   7. INTERACTIVE SQL LAB & LIVE QUERY SIMULATOR
+   ========================================================================== */
+function initSqlLab() {
+  const tabs = document.querySelectorAll('.sql-tab-btn');
+  const queryText = document.getElementById('sql-query-display-text');
+  const runBtn = document.getElementById('sql-run-trigger');
+  const tableHead = document.getElementById('sql-table-headers');
+  const tableBody = document.getElementById('sql-table-rows');
+  const metaTime = document.getElementById('sql-exec-time');
+  const metaRows = document.getElementById('sql-exec-rows');
+
+  if (!tabs.length || !queryText || !tableHead || !tableBody) return;
+
+  const dataset = {
+    cardamom: {
+      query: `SELECT auction_id, grade, base_price, highest_bid, bidder_code, status 
+FROM cardamom_lots 
+WHERE status = 'LIVE' 
+ORDER BY highest_bid DESC 
+LIMIT 4;`,
+      headers: ['AUCTION_ID', 'GRADE', 'BASE_PRICE (₹/kg)', 'CURRENT_BID (₹/kg)', 'BIDDER', 'STATUS'],
+      rows: [
+        ['CRD-2025-081', 'Alleppey Green Extra Bold (AGEB)', '₹ 2,450.00', '₹ 2,980.00', 'TRADER_KL_04', '<span style="color:#10b981">LIVE ●</span>'],
+        ['CRD-2025-082', 'Alleppey Green Bold (AGB)', '₹ 2,100.00', '₹ 2,420.00', 'EXPORTER_MUM', '<span style="color:#10b981">LIVE ●</span>'],
+        ['CRD-2025-083', 'Cardamom Superior (AGS)', '₹ 1,850.00', '₹ 2,050.00', 'SPICE_HUB_COK', '<span style="color:#10b981">LIVE ●</span>'],
+        ['CRD-2025-084', 'Cardamom Shipment (AGS-1)', '₹ 1,700.00', '₹ 1,890.00', 'TRADER_TN_12', '<span style="color:#10b981">LIVE ●</span>']
+      ],
+      time: '0.042 ms'
+    },
+    agro: {
+      query: `SELECT e.equipment_name, e.category, e.daily_rate, u.district, b.rental_status 
+FROM agro_equipment e
+JOIN owners u ON e.owner_id = u.id
+JOIN rental_bookings b ON e.id = b.equipment_id
+WHERE b.rental_status = 'AVAILABLE';`,
+      headers: ['EQUIPMENT_NAME', 'CATEGORY', 'RATE/DAY (₹)', 'DISTRICT', 'AVAILABILITY'],
+      rows: [
+        ['Mahindra 575 DI Tractor', 'Tractors', '₹ 1,800.00', 'Kottayam', '<span style="color:#10b981">AVAILABLE</span>'],
+        ['Kubota Combine Harvester', 'Harvesters', '₹ 3,500.00', 'Kottayam', '<span style="color:#10b981">AVAILABLE</span>'],
+        ['VST Shakti Power Tiller', 'Tillers', '₹ 950.00', 'Idukki', '<span style="color:#10b981">AVAILABLE</span>'],
+        ['Rotavator Heavy Multi-Speed', 'Tillage', '₹ 800.00', 'Pathanamthitta', '<span style="color:#10b981">AVAILABLE</span>']
+      ],
+      time: '0.061 ms'
+    },
+    marketplace: {
+      query: `SELECT p.id, p.title, c.name AS category, p.price, p.location, p.status 
+FROM products_product p
+JOIN products_category c ON p.category_id = c.id
+WHERE p.status = 'active'
+ORDER BY p.created_at DESC;`,
+      headers: ['PRODUCT_ID', 'TITLE', 'CATEGORY', 'PRICE (₹)', 'LOCATION', 'STATUS'],
+      rows: [
+        ['PRD-109', 'Sony Alpha A7 III (Mint Condition)', 'Electronics', '₹ 89,000.00', 'Kochi, Kerala', '<span style="color:#38bdf8">ACTIVE</span>'],
+        ['PRD-108', 'Royal Enfield Hunter 350 (2023)', 'Vehicles', '₹ 1,45,000.00', 'Kottayam', '<span style="color:#38bdf8">ACTIVE</span>'],
+        ['PRD-107', 'Apple MacBook Pro M2 16GB', 'Laptops', '₹ 1,12,000.00', 'Trivandrum', '<span style="color:#38bdf8">ACTIVE</span>'],
+        ['PRD-106', 'Solid Teak Wood Dining 6-Seater', 'Furniture', '₹ 28,500.00', 'Erumely', '<span style="color:#38bdf8">ACTIVE</span>']
+      ],
+      time: '0.038 ms'
+    }
+  };
+
+  let currentKey = 'cardamom';
+
+  function renderSql(key) {
+    const data = dataset[key];
+    if (!data) return;
+    currentKey = key;
+    queryText.textContent = data.query;
+
+    tableHead.innerHTML = `<tr>${data.headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
+    tableBody.innerHTML = data.rows.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`).join('');
+    metaTime.textContent = `Execution: ${data.time}`;
+    metaRows.textContent = `Rows Returned: ${data.rows.length}`;
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      renderSql(tab.dataset.table);
+    });
+  });
+
+  if (runBtn) {
+    runBtn.addEventListener('click', () => {
+      runBtn.innerHTML = `⏳ Executing...`;
+      tableBody.style.opacity = '0.3';
+      setTimeout(() => {
+        renderSql(currentKey);
+        tableBody.style.opacity = '1';
+        runBtn.innerHTML = `▶ Run Query`;
+        playSound('success');
+        showToast('SQL Query Executed Successfully (0.04ms)');
+      }, 250);
+    });
+  }
+
+  // Initial load
+  renderSql('cardamom');
+}
+
+/* ==========================================================================
+   8. MODALS ENGINE (ARCHITECTURE & RESUME)
+   ========================================================================== */
+function initModals() {
+  const modalOverlay = document.getElementById('modal-overlay');
+  const modalTitle = document.getElementById('modal-title');
+  const modalBody = document.getElementById('modal-body');
+  const closeBtn = document.getElementById('modal-close');
+
+  if (!modalOverlay || !closeBtn) return;
+
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Modal Content definitions
+  const modalData = {
+    'arch-agro': {
+      title: 'Agro Equipment Rental System — Technical Architecture',
+      body: `
+        <div style="font-size:0.95rem;line-height:1.7;color:#cbd5e1;">
+          <h4 style="color:#10b981;margin-bottom:0.5rem;">System Overview & Goal</h4>
+          <p>A mission-driven agricultural logistics platform connecting smallholder farmers with tractor and harvester owners in rural Kerala. Developed end-to-end to eliminate middleman margins and solve seasonal equipment shortages.</p>
+          
+          <h4 style="color:#38bdf8;margin:1.25rem 0 0.5rem;">Database Schema & Entities</h4>
+          <ul style="padding-left:1.2rem;margin-bottom:1rem;">
+            <li><strong>users_owner & users_farmer:</strong> Profiles with KYC verification, contact phone, and geolocation.</li>
+            <li><strong>equipment_inventory:</strong> Machinery specs, horsepower, implement attachments, base hourly/daily rates, maintenance status.</li>
+            <li><strong>rental_bookings:</strong> Date reservation calendars, conflict-prevention constraints, start/end metering, payment status.</li>
+            <li><strong>pricing_rules:</strong> Transparent seasonal multiplier logic, operator fee adjustments, and mileage calculations.</li>
+          </ul>
+
+          <h4 style="color:#f59e0b;margin:1.25rem 0 0.5rem;">Engineering Highlights</h4>
+          <p>• Engineered SQL data layer with strict foreign key constraints preventing double-booking of agricultural machinery across conflicting dates.<br>
+          • Built requirement analysis from direct field research in Kottayam to optimize ease-of-use for non-technical users.</p>
+        </div>
+      `
+    },
+    'arch-auction': {
+      title: 'E-Auction of Cardamom — High-Concurrency Trading Engine',
+      body: `
+        <div style="font-size:0.95rem;line-height:1.7;color:#cbd5e1;">
+          <h4 style="color:#10b981;margin-bottom:0.5rem;">Commodity Trading Architecture</h4>
+          <p>Engineered to bring transparency to cardamom spice auctions (Idukki / Bodinayakanur spice belts). The platform replaces opaque manual tenders with dynamic digital price discovery.</p>
+          
+          <h4 style="color:#38bdf8;margin:1.25rem 0 0.5rem;">Bidding State Machine & Anti-Sniping</h4>
+          <div style="background:#090d15;padding:1rem;border-radius:8px;font-family:monospace;font-size:0.85rem;margin:0.75rem 0;border:1px solid rgba(255,255,255,0.08);">
+            [LOT_CATALOGED] ➔ [AUCTION_LIVE] ➔ [BID_RECEIVED] ➔ [PRICE_INCREMENT_CHECK] ➔ [HIGHEST_BID_UPDATED] ➔ [TIMER_ZERO] ➔ [SETTLEMENT]
+          </div>
+
+          <h4 style="color:#f59e0b;margin:1.25rem 0 0.5rem;">Data Integrity & Consistency</h4>
+          <p>• Implemented real-time incremental price calculation enforcing minimum bid increments (₹20/kg increments).<br>
+          • Relational audit trail in SQL logging every bid timestamp, IP, and authorized trader token to ensure zero dispute settlements.</p>
+        </div>
+      `
+    },
+    'arch-marketplace': {
+      title: 'Buy & Sell Hub — Django OLX Classifieds Clone',
+      body: `
+        <div style="font-size:0.95rem;line-height:1.7;color:#cbd5e1;">
+          <h4 style="color:#10b981;margin-bottom:0.5rem;">Production Django Model Architecture</h4>
+          <p>Modeled on enterprise classifieds platforms, this architecture features modular apps (Products, Communications, Users, Config) with full relational normalization.</p>
+          
+          <h4 style="color:#38bdf8;margin:1.25rem 0 0.5rem;">Real Django Schema Implementation</h4>
+          <pre style="background:#090d15;padding:1rem;border-radius:8px;font-family:monospace;font-size:0.8rem;overflow-x:auto;border:1px solid rgba(255,255,255,0.08);color:#a5f3fc;">
+class Product(models.Model):
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    condition = models.CharField(max_length=10, choices=CONDITION_CHOICES, default='used')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active')
+
+class Message(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    content = models.TextField()
+    is_read = models.BooleanField(default=False)
+          </pre>
+
+          <h4 style="color:#f59e0b;margin:1.25rem 0 0.5rem;">Core Capabilities</h4>
+          <p>• Multi-image uploads linked to distinct product listings with cascading deletions.<br>
+          • Direct in-app buyer-to-seller messaging thread linked directly to the queried item.<br>
+          • Auto-slugified canonical URLs for SEO indexing and clean routing.</p>
+        </div>
+      `
+    },
+    'resume-viewer': {
+      title: 'Curriculum Vitae — Muhammed Raihan O.A',
+      body: `
+        <div style="font-size:0.9rem;line-height:1.6;color:#e2e8f0;background:#0d111a;padding:1.5rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);">
+          <div style="text-align:center;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:1rem;margin-bottom:1rem;">
+            <h2 style="font-size:1.6rem;color:#fff;margin-bottom:0.25rem;">MUHAMMED RAIHAN O.A</h2>
+            <div style="color:#10b981;font-weight:600;font-size:1rem;margin-bottom:0.4rem;">Software Developer</div>
+            <div style="font-size:0.85rem;color:#94a3b8;">Kerala, India | +91 6282727399 | muhammedraihan6001@gmail.com</div>
+            <div style="font-size:0.82rem;color:#38bdf8;">linkedin.com/in/muhammed-raihan-oa-1a0810368</div>
+          </div>
+
+          <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Professional Summary</h4>
+          <p style="margin-top:0.4rem;">Detail-oriented MCA student and aspiring Software Developer with a strong foundation in programming, databases, and structured problem-solving. Proficient in Python, Java, C++, and SQL, with hands-on experience designing and building complete, database-driven applications from requirement analysis through to working implementation. A quick learner who enjoys turning requirements into clean, reliable software, seeking a software development role to grow and contribute in a real-world team.</p>
+
+          <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Technical Skills</h4>
+          <p style="margin-top:0.4rem;">• <strong>Languages:</strong> Python, Java, C++, SQL<br>
+          • <strong>Development:</strong> Application development, database design, back-end logic, requirement analysis, end-to-end delivery<br>
+          • <strong>Databases:</strong> SQL querying, schema design, data modelling for application back-ends<br>
+          • <strong>Tools & Platforms:</strong> Linux, Power BI, Microsoft Excel, Microsoft PowerPoint<br>
+          • <strong>Core Strengths:</strong> Problem-solving, analytical thinking, attention to detail, fast learner</p>
+
+          <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Projects</h4>
+          <p style="margin-top:0.4rem;"><strong>Agro Equipment Rental System</strong> (02/2025 – 04/2025, Kottayam)<br>
+          • Designed and developed a platform connecting farmers with equipment owners, handling rental, availability, and pricing workflows.<br>
+          • Used SQL and programming skills to build and manage the core application data layer, improving accessibility and cost transparency.<br>
+          • Delivered a complete, working system end-to-end from requirement analysis to final implementation.</p>
+
+          <p style="margin-top:0.6rem;"><strong>E-Auction of Cardamom</strong> (Personal Project)<br>
+          • Built an online e-auction platform enabling cardamom growers and traders to list produce, place bids, and complete transactions.<br>
+          • Designed the database to manage listings, bid records, and user data, ensuring accurate and reliable auction tracking.<br>
+          • Implemented bidding logic and real-time price updates using programming and SQL.</p>
+
+          <p style="margin-top:0.6rem;"><strong>Buy & Sell Hub – OLX Clone</strong> (Personal Project)<br>
+          • Developed a full-featured online marketplace where users can list, browse, and search products, modelled on the OLX classifieds format.<br>
+          • Structured and managed product, category, and user data in SQL to support efficient search, filtering, and retrieval.<br>
+          • Implemented core features including listing creation, categorization, and search, with a focus on usability and data accuracy.</p>
+
+          <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Education</h4>
+          <p style="margin-top:0.4rem;">• <strong>Master of Computer Applications (MCA)</strong> [In Progress] — Marian College Kuttikkanam (Autonomous)<br>
+          • <strong>Bachelor of Computer Applications (BCA)</strong> [06/2022 – 05/2025] — M.E.S College, Erumely<br>
+          • <strong>Plus Two, Computer Science</strong> [06/2020 – 03/2022] — J.J Murphy HSS, Yendayar</p>
+
+          <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Languages</h4>
+          <p style="margin-top:0.4rem;">English (Proficient) • Malayalam (Native) • Tamil (Intermediate)</p>
+
+          <div style="margin-top:1.5rem;text-align:center;">
+            <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ Print / Save as PDF</button>
+          </div>
+        </div>
+      `
+    }
+  };
+
+  document.querySelectorAll('[data-modal-target]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const target = trigger.dataset.modalTarget;
+      if (modalData[target]) {
+        modalTitle.textContent = modalData[target].title;
+        modalBody.innerHTML = modalData[target].body;
+        modalOverlay.classList.add('active');
+        playSound('click');
+      }
+    });
+  });
+}
+
+/* ==========================================================================
+   9. CONTACT ACTIONS & TOASTS
+   ========================================================================== */
+function initContactActions() {
+  // Copy buttons
+  document.querySelectorAll('[data-copy]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const val = btn.dataset.copy;
+      navigator.clipboard.writeText(val).then(() => {
+        showToast(`Copied to clipboard: ${val}`);
+        playSound('success');
+      }).catch(() => {
+        showToast(`Selected: ${val}`);
+      });
+    });
+  });
+
+  // Contact form submission
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('sender-name')?.value || 'Recruiter / Collaborator';
+      const email = document.getElementById('sender-email')?.value || '';
+      const subject = document.getElementById('sender-subject')?.value || 'Developer Role Discussion';
+      const message = document.getElementById('sender-message')?.value || '';
+
+      const mailtoLink = `mailto:muhammedraihan6001@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Hi Raihan,\n\n${message}\n\nFrom: ${name} (${email})`)}`;
+      
+      showToast('Opening your email client to send message...');
+      playSound('success');
+      setTimeout(() => {
+        window.location.href = mailtoLink;
+      }, 600);
+    });
+  }
+}
+
+function showToast(message) {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.innerHTML = `<span>✓</span> <span>${message}</span>`;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(10px)';
+    setTimeout(() => toast.remove(), 300);
+  }, 3200);
+}
