@@ -1,13 +1,7 @@
 /**
  * MUHAMMED RAIHAN O.A - PORTFOLIO INTERACTIVITY ENGINE
- * Features:
- * - Dynamic Canvas Constellation / Particle Field
- * - Interactive Developer Terminal (Raihan CLI)
- * - Live SQL Query Execution Simulator
- * - System Architecture & Schema Modals
- * - Synthesizer Audio Effects (Web Audio API)
- * - Theme Switcher & Persistence
- * - Copy-to-Clipboard & Toast Engine
+ * Clean Vector & Standard ASCII Architecture
+ * Zero Broken Unicode / Zero [OBJ] Replacement Symbols
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -153,7 +147,7 @@ function initTypewriter() {
     }
 
     if (!isDeleting && charIdx === currentRole.length) {
-      speed = 2200; // Pause at end
+      speed = 2200;
       isDeleting = true;
     } else if (isDeleting && charIdx === 0) {
       isDeleting = false;
@@ -204,6 +198,9 @@ function initThemeSwitcher() {
 let audioCtx = null;
 let soundEnabled = false;
 
+const iconSoundOn = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+const iconSoundOff = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
+
 function initAudioEffects() {
   const soundBtn = document.getElementById('sound-toggle');
   if (!soundBtn) return;
@@ -213,13 +210,12 @@ function initAudioEffects() {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
     soundEnabled = !soundEnabled;
-    soundBtn.innerHTML = soundEnabled ? '🔊' : '🔇';
+    soundBtn.innerHTML = soundEnabled ? iconSoundOn : iconSoundOff;
     soundBtn.title = soundEnabled ? 'Mute SFX' : 'Enable SFX';
-    showToast(soundEnabled ? 'Interactive SFX Activated' : 'Audio SFX Muted');
+    showToast(soundEnabled ? 'Audio SFX Activated' : 'Audio SFX Muted');
     if (soundEnabled) playSound('success');
   });
 
-  // Attach sound to interactive elements
   document.querySelectorAll('.btn, .term-pill, .filter-btn, .sql-tab-btn, .modal-close-btn').forEach(btn => {
     btn.addEventListener('mouseenter', () => playSound('hover'));
     btn.addEventListener('click', () => playSound('click'));
@@ -285,14 +281,14 @@ function initTerminal() {
   const commands = {
     help: () => `
 <span class="text-gradient">Available CLI Commands:</span>
-  • <span style="color:#10b981">about</span>       - Brief overview & professional philosophy
-  • <span style="color:#10b981">skills</span>      - Technical competency & programming languages
-  • <span style="color:#10b981">projects</span>    - Featured applications and production systems
-  • <span style="color:#10b981">schema</span>      - Visual ASCII Relational Database schemas
-  • <span style="color:#10b981">education</span>   - Academic credentials (MCA / BCA)
-  • <span style="color:#10b981">contact</span>     - Direct contact links & details
-  • <span style="color:#10b981">matrix</span>      - Stream matrix data rain
-  • <span style="color:#10b981">clear</span>       - Clear current console output
+  > <span style="color:#10b981">about</span>       - Brief overview & professional philosophy
+  > <span style="color:#10b981">skills</span>      - Technical competency & programming languages
+  > <span style="color:#10b981">projects</span>    - Featured applications and production systems
+  > <span style="color:#10b981">schema</span>      - Visual ASCII Relational Database schemas
+  > <span style="color:#10b981">education</span>   - Academic credentials (MCA / BCA)
+  > <span style="color:#10b981">contact</span>     - Direct contact links & details
+  > <span style="color:#10b981">matrix</span>      - Stream matrix data rain
+  > <span style="color:#10b981">clear</span>       - Clear current console output
 `,
     about: () => `
 <strong style="color:#fff">MUHAMMED RAIHAN O.A</strong> - Software Developer
@@ -305,10 +301,10 @@ through to working implementation."
 `,
     skills: () => `
 <span style="color:#38bdf8">LANGUAGES:</span>
-  Python    [██████████████████░░] 90% (Backend, Scripting, Django)
-  SQL       [███████████████████░] 92% (Schema Modeling, Queries, Indexing)
-  Java      [███████████████░░░░░] 80% (OOP, Enterprise Architecture)
-  C++       [██████████████░░░░░░] 75% (Data Structures & Algorithms)
+  Python    [==================  ] 90% (Backend, Scripting, Django)
+  SQL       [=================== ] 92% (Schema Modeling, Queries, Indexing)
+  Java      [================    ] 80% (OOP, Enterprise Architecture)
+  C++       [==============      ] 75% (Data Structures & Algorithms)
 
 <span style="color:#38bdf8">PLATFORMS & TOOLS:</span>
   Linux CLI, Power BI, Relational DBMS (SQLite, PostgreSQL, MySQL), Git
@@ -322,45 +318,45 @@ through to working implementation."
    - Real-time commodity auction engine with dynamic bidding logic & trade settlement.
    - Core Stack: Python, SQL Data Layer, Real-time Pricing Logic.
 
-<span style="color:#f59e0b">3. Buy & Sell Hub – OLX Clone</span> (Personal Project)
+<span style="color:#f59e0b">3. Buy & Sell Hub - OLX Clone</span> (Personal Project)
    - Full-featured classifieds marketplace with multi-image listings & direct chat.
    - Core Stack: Django, Python, SQLite/SQL, Messaging Engine.
 `,
     schema: () => `
 <span style="color:#10b981">Relational Schema Architecture (Buy & Sell Hub):</span>
-┌──────────────┐       ┌──────────────────────┐       ┌─────────────────────┐
-│   Category   │ 1───* │       Product        │ 1───* │    ProductImage     │
-├──────────────┤       ├──────────────────────┤       ├─────────────────────┤
-│ id (PK)      │       │ id (PK)              │       │ id (PK)             │
-│ name         │       │ seller_id (FK->User) │       │ product_id (FK)     │
-│ slug (UQ)    │       │ category_id (FK)     │       │ image (file)        │
-│ icon         │       │ title, slug, price   │       └─────────────────────┘
-└──────────────┘       │ location, condition  │
-                       │ status (active/sold) │       ┌─────────────────────┐
-                       └───────────┬──────────┘       │       Message       │
-                                   │                  ├─────────────────────┤
-                                   └────────────────* │ id (PK)             │
-                                                      │ sender_id (FK)      │
-                                                      │ recipient_id (FK)   │
-                                                      │ product_id (FK)     │
-                                                      │ content, is_read    │
-                                                      └─────────────────────┘
++--------------+       +----------------------+       +---------------------+
+|   Category   | 1---* |       Product        | 1---* |    ProductImage     |
++--------------+       +----------------------+       +---------------------+
+| id (PK)      |       | id (PK)              |       | id (PK)             |
+| name         |       | seller_id (FK->User) |       | product_id (FK)     |
+| slug (UQ)    |       | category_id (FK)     |       | image (file)        |
+| icon         |       | title, slug, price   |       +---------------------+
++--------------+       | location, condition  |
+                       | status (active/sold) |       +---------------------+
+                       +-----------+----------+       |       Message       |
+                                   |                  +---------------------+
+                                   +----------------* | id (PK)             |
+                                                      | sender_id (FK)      |
+                                                      | recipient_id (FK)   |
+                                                      | product_id (FK)     |
+                                                      | content, is_read    |
+                                                      +---------------------+
 `,
     education: () => `
-🎓 <strong style="color:#fff">Master of Computer Applications (MCA)</strong> - In Progress
-   Marian College Kuttikkanam (Autonomous)
+[MCA] <strong style="color:#fff">Master of Computer Applications</strong> - In Progress
+      Marian College Kuttikkanam (Autonomous)
 
-🎓 <strong style="color:#fff">Bachelor of Computer Applications (BCA)</strong> - 06/2022 to 05/2025
-   M.E.S College, Erumely
+[BCA] <strong style="color:#fff">Bachelor of Computer Applications</strong> - 06/2022 to 05/2025
+      M.E.S College, Erumely
 
-🎓 <strong style="color:#fff">Plus Two, Computer Science</strong> - 06/2020 to 03/2022
-   J.J Murphy HSS, Yendayar
+[HSS] <strong style="color:#fff">Plus Two, Computer Science</strong> - 06/2020 to 03/2022
+      J.J Murphy HSS, Yendayar
 `,
     contact: () => `
-📧 Email:    <a href="mailto:muhammedraihan6001@gmail.com" style="color:#10b981">muhammedraihan6001@gmail.com</a>
-📱 Phone:    <a href="tel:+916282727399" style="color:#10b981">+91 6282727399</a>
-💼 LinkedIn: <a href="https://linkedin.com/in/muhammed-raihan-oa-1a0810368" target="_blank" style="color:#38bdf8">linkedin.com/in/muhammed-raihan-oa-1a0810368</a>
-📍 Location: Kerala, India
+Email:    <a href="mailto:muhammedraihan6001@gmail.com" style="color:#10b981">muhammedraihan6001@gmail.com</a>
+Phone:    <a href="tel:+916282727399" style="color:#10b981">+91 6282727399</a>
+LinkedIn: <a href="https://linkedin.com/in/muhammed-raihan-oa-1a0810368" target="_blank" style="color:#38bdf8">linkedin.com/in/muhammed-raihan-oa-1a0810368</a>
+Location: Kerala, India
 `,
     matrix: () => {
       runMatrixEffect();
@@ -379,7 +375,6 @@ through to working implementation."
     commandHistory.push(trimmed);
     historyIdx = commandHistory.length;
 
-    // Echo input
     const promptEcho = document.createElement('div');
     promptEcho.className = 'term-output-line';
     promptEcho.innerHTML = `<span class="term-user">visitor@raihan</span>:<span class="term-path">~$</span> ${escapeHtml(trimmed)}`;
@@ -426,7 +421,6 @@ through to working implementation."
     }
   });
 
-  // Quick Action Pills
   document.querySelectorAll('.term-pill').forEach(pill => {
     pill.addEventListener('click', () => {
       const cmd = pill.dataset.cmd;
@@ -551,12 +545,12 @@ FROM cardamom_lots
 WHERE status = 'LIVE' 
 ORDER BY highest_bid DESC 
 LIMIT 4;`,
-      headers: ['AUCTION_ID', 'GRADE', 'BASE_PRICE (₹/kg)', 'CURRENT_BID (₹/kg)', 'BIDDER', 'STATUS'],
+      headers: ['AUCTION_ID', 'GRADE', 'BASE_PRICE (INR/kg)', 'CURRENT_BID (INR/kg)', 'BIDDER', 'STATUS'],
       rows: [
-        ['CRD-2025-081', 'Alleppey Green Extra Bold (AGEB)', '₹ 2,450.00', '₹ 2,980.00', 'TRADER_KL_04', '<span style="color:#10b981">LIVE ●</span>'],
-        ['CRD-2025-082', 'Alleppey Green Bold (AGB)', '₹ 2,100.00', '₹ 2,420.00', 'EXPORTER_MUM', '<span style="color:#10b981">LIVE ●</span>'],
-        ['CRD-2025-083', 'Cardamom Superior (AGS)', '₹ 1,850.00', '₹ 2,050.00', 'SPICE_HUB_COK', '<span style="color:#10b981">LIVE ●</span>'],
-        ['CRD-2025-084', 'Cardamom Shipment (AGS-1)', '₹ 1,700.00', '₹ 1,890.00', 'TRADER_TN_12', '<span style="color:#10b981">LIVE ●</span>']
+        ['CRD-2025-081', 'Alleppey Green Extra Bold (AGEB)', 'INR 2,450.00', 'INR 2,980.00', 'TRADER_KL_04', '<span style="color:#10b981;font-weight:600;"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 6px #10b981;margin-right:5px;"></span>LIVE</span>'],
+        ['CRD-2025-082', 'Alleppey Green Bold (AGB)', 'INR 2,100.00', 'INR 2,420.00', 'EXPORTER_MUM', '<span style="color:#10b981;font-weight:600;"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 6px #10b981;margin-right:5px;"></span>LIVE</span>'],
+        ['CRD-2025-083', 'Cardamom Superior (AGS)', 'INR 1,850.00', 'INR 2,050.00', 'SPICE_HUB_COK', '<span style="color:#10b981;font-weight:600;"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 6px #10b981;margin-right:5px;"></span>LIVE</span>'],
+        ['CRD-2025-084', 'Cardamom Shipment (AGS-1)', 'INR 1,700.00', 'INR 1,890.00', 'TRADER_TN_12', '<span style="color:#10b981;font-weight:600;"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 6px #10b981;margin-right:5px;"></span>LIVE</span>']
       ],
       time: '0.042 ms'
     },
@@ -566,12 +560,12 @@ FROM agro_equipment e
 JOIN owners u ON e.owner_id = u.id
 JOIN rental_bookings b ON e.id = b.equipment_id
 WHERE b.rental_status = 'AVAILABLE';`,
-      headers: ['EQUIPMENT_NAME', 'CATEGORY', 'RATE/DAY (₹)', 'DISTRICT', 'AVAILABILITY'],
+      headers: ['EQUIPMENT_NAME', 'CATEGORY', 'RATE/DAY (INR)', 'DISTRICT', 'AVAILABILITY'],
       rows: [
-        ['Mahindra 575 DI Tractor', 'Tractors', '₹ 1,800.00', 'Kottayam', '<span style="color:#10b981">AVAILABLE</span>'],
-        ['Kubota Combine Harvester', 'Harvesters', '₹ 3,500.00', 'Kottayam', '<span style="color:#10b981">AVAILABLE</span>'],
-        ['VST Shakti Power Tiller', 'Tillers', '₹ 950.00', 'Idukki', '<span style="color:#10b981">AVAILABLE</span>'],
-        ['Rotavator Heavy Multi-Speed', 'Tillage', '₹ 800.00', 'Pathanamthitta', '<span style="color:#10b981">AVAILABLE</span>']
+        ['Mahindra 575 DI Tractor', 'Tractors', 'INR 1,800.00', 'Kottayam', '<span style="color:#10b981">AVAILABLE</span>'],
+        ['Kubota Combine Harvester', 'Harvesters', 'INR 3,500.00', 'Kottayam', '<span style="color:#10b981">AVAILABLE</span>'],
+        ['VST Shakti Power Tiller', 'Tillers', 'INR 950.00', 'Idukki', '<span style="color:#10b981">AVAILABLE</span>'],
+        ['Rotavator Heavy Multi-Speed', 'Tillage', 'INR 800.00', 'Pathanamthitta', '<span style="color:#10b981">AVAILABLE</span>']
       ],
       time: '0.061 ms'
     },
@@ -581,12 +575,12 @@ FROM products_product p
 JOIN products_category c ON p.category_id = c.id
 WHERE p.status = 'active'
 ORDER BY p.created_at DESC;`,
-      headers: ['PRODUCT_ID', 'TITLE', 'CATEGORY', 'PRICE (₹)', 'LOCATION', 'STATUS'],
+      headers: ['PRODUCT_ID', 'TITLE', 'CATEGORY', 'PRICE (INR)', 'LOCATION', 'STATUS'],
       rows: [
-        ['PRD-109', 'Sony Alpha A7 III (Mint Condition)', 'Electronics', '₹ 89,000.00', 'Kochi, Kerala', '<span style="color:#38bdf8">ACTIVE</span>'],
-        ['PRD-108', 'Royal Enfield Hunter 350 (2023)', 'Vehicles', '₹ 1,45,000.00', 'Kottayam', '<span style="color:#38bdf8">ACTIVE</span>'],
-        ['PRD-107', 'Apple MacBook Pro M2 16GB', 'Laptops', '₹ 1,12,000.00', 'Trivandrum', '<span style="color:#38bdf8">ACTIVE</span>'],
-        ['PRD-106', 'Solid Teak Wood Dining 6-Seater', 'Furniture', '₹ 28,500.00', 'Erumely', '<span style="color:#38bdf8">ACTIVE</span>']
+        ['PRD-109', 'Sony Alpha A7 III (Mint Condition)', 'Electronics', 'INR 89,000.00', 'Kochi, Kerala', '<span style="color:#38bdf8">ACTIVE</span>'],
+        ['PRD-108', 'Royal Enfield Hunter 350 (2023)', 'Vehicles', 'INR 1,45,000.00', 'Kottayam', '<span style="color:#38bdf8">ACTIVE</span>'],
+        ['PRD-107', 'Apple MacBook Pro M2 16GB', 'Laptops', 'INR 1,12,000.00', 'Trivandrum', '<span style="color:#38bdf8">ACTIVE</span>'],
+        ['PRD-106', 'Solid Teak Wood Dining 6-Seater', 'Furniture', 'INR 28,500.00', 'Erumely', '<span style="color:#38bdf8">ACTIVE</span>']
       ],
       time: '0.038 ms'
     }
@@ -616,19 +610,23 @@ ORDER BY p.created_at DESC;`,
 
   if (runBtn) {
     runBtn.addEventListener('click', () => {
-      runBtn.innerHTML = `⏳ Executing...`;
+      runBtn.innerHTML = `<span>Executing...</span>`;
       tableBody.style.opacity = '0.3';
       setTimeout(() => {
         renderSql(currentKey);
         tableBody.style.opacity = '1';
-        runBtn.innerHTML = `▶ Run Query`;
+        runBtn.innerHTML = `
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <span>Run Query</span>
+        `;
         playSound('success');
         showToast('SQL Query Executed Successfully (0.04ms)');
       }, 250);
     });
   }
 
-  // Initial load
   renderSql('cardamom');
 }
 
@@ -658,10 +656,9 @@ function initModals() {
     }
   });
 
-  // Modal Content definitions
   const modalData = {
     'arch-agro': {
-      title: 'Agro Equipment Rental System — Technical Architecture',
+      title: 'Agro Equipment Rental System - Technical Architecture',
       body: `
         <div style="font-size:0.95rem;line-height:1.7;color:#cbd5e1;">
           <h4 style="color:#10b981;margin-bottom:0.5rem;">System Overview & Goal</h4>
@@ -676,13 +673,13 @@ function initModals() {
           </ul>
 
           <h4 style="color:#f59e0b;margin:1.25rem 0 0.5rem;">Engineering Highlights</h4>
-          <p>• Engineered SQL data layer with strict foreign key constraints preventing double-booking of agricultural machinery across conflicting dates.<br>
-          • Built requirement analysis from direct field research in Kottayam to optimize ease-of-use for non-technical users.</p>
+          <p>- Engineered SQL data layer with strict foreign key constraints preventing double-booking of agricultural machinery across conflicting dates.<br>
+          - Built requirement analysis from direct field research in Kottayam to optimize ease-of-use for non-technical users.</p>
         </div>
       `
     },
     'arch-auction': {
-      title: 'E-Auction of Cardamom — High-Concurrency Trading Engine',
+      title: 'E-Auction of Cardamom - High-Concurrency Trading Engine',
       body: `
         <div style="font-size:0.95rem;line-height:1.7;color:#cbd5e1;">
           <h4 style="color:#10b981;margin-bottom:0.5rem;">Commodity Trading Architecture</h4>
@@ -690,17 +687,17 @@ function initModals() {
           
           <h4 style="color:#38bdf8;margin:1.25rem 0 0.5rem;">Bidding State Machine & Anti-Sniping</h4>
           <div style="background:#090d15;padding:1rem;border-radius:8px;font-family:monospace;font-size:0.85rem;margin:0.75rem 0;border:1px solid rgba(255,255,255,0.08);">
-            [LOT_CATALOGED] ➔ [AUCTION_LIVE] ➔ [BID_RECEIVED] ➔ [PRICE_INCREMENT_CHECK] ➔ [HIGHEST_BID_UPDATED] ➔ [TIMER_ZERO] ➔ [SETTLEMENT]
+            [LOT_CATALOGED] -> [AUCTION_LIVE] -> [BID_RECEIVED] -> [PRICE_INCREMENT_CHECK] -> [HIGHEST_BID_UPDATED] -> [TIMER_ZERO] -> [SETTLEMENT]
           </div>
 
           <h4 style="color:#f59e0b;margin:1.25rem 0 0.5rem;">Data Integrity & Consistency</h4>
-          <p>• Implemented real-time incremental price calculation enforcing minimum bid increments (₹20/kg increments).<br>
-          • Relational audit trail in SQL logging every bid timestamp, IP, and authorized trader token to ensure zero dispute settlements.</p>
+          <p>- Implemented real-time incremental price calculation enforcing minimum bid increments (INR 20/kg increments).<br>
+          - Relational audit trail in SQL logging every bid timestamp, IP, and authorized trader token to ensure zero dispute settlements.</p>
         </div>
       `
     },
     'arch-marketplace': {
-      title: 'Buy & Sell Hub — Django OLX Classifieds Clone',
+      title: 'Buy & Sell Hub - Django OLX Classifieds Clone',
       body: `
         <div style="font-size:0.95rem;line-height:1.7;color:#cbd5e1;">
           <h4 style="color:#10b981;margin-bottom:0.5rem;">Production Django Model Architecture</h4>
@@ -726,14 +723,14 @@ class Message(models.Model):
           </pre>
 
           <h4 style="color:#f59e0b;margin:1.25rem 0 0.5rem;">Core Capabilities</h4>
-          <p>• Multi-image uploads linked to distinct product listings with cascading deletions.<br>
-          • Direct in-app buyer-to-seller messaging thread linked directly to the queried item.<br>
-          • Auto-slugified canonical URLs for SEO indexing and clean routing.</p>
+          <p>- Multi-image uploads linked to distinct product listings with cascading deletions.<br>
+          - Direct in-app buyer-to-seller messaging thread linked directly to the queried item.<br>
+          - Auto-slugified canonical URLs for SEO indexing and clean routing.</p>
         </div>
       `
     },
     'resume-viewer': {
-      title: 'Curriculum Vitae — Muhammed Raihan O.A',
+      title: 'Curriculum Vitae - Muhammed Raihan O.A',
       body: `
         <div style="font-size:0.9rem;line-height:1.6;color:#e2e8f0;background:#0d111a;padding:1.5rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);">
           <div style="text-align:center;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:1rem;margin-bottom:1rem;">
@@ -747,38 +744,45 @@ class Message(models.Model):
           <p style="margin-top:0.4rem;">Detail-oriented MCA student and aspiring Software Developer with a strong foundation in programming, databases, and structured problem-solving. Proficient in Python, Java, C++, and SQL, with hands-on experience designing and building complete, database-driven applications from requirement analysis through to working implementation. A quick learner who enjoys turning requirements into clean, reliable software, seeking a software development role to grow and contribute in a real-world team.</p>
 
           <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Technical Skills</h4>
-          <p style="margin-top:0.4rem;">• <strong>Languages:</strong> Python, Java, C++, SQL<br>
-          • <strong>Development:</strong> Application development, database design, back-end logic, requirement analysis, end-to-end delivery<br>
-          • <strong>Databases:</strong> SQL querying, schema design, data modelling for application back-ends<br>
-          • <strong>Tools & Platforms:</strong> Linux, Power BI, Microsoft Excel, Microsoft PowerPoint<br>
-          • <strong>Core Strengths:</strong> Problem-solving, analytical thinking, attention to detail, fast learner</p>
+          <p style="margin-top:0.4rem;">- <strong>Languages:</strong> Python, Java, C++, SQL<br>
+          - <strong>Development:</strong> Application development, database design, back-end logic, requirement analysis, end-to-end delivery<br>
+          - <strong>Databases:</strong> SQL querying, schema design, data modelling for application back-ends<br>
+          - <strong>Tools & Platforms:</strong> Linux, Power BI, Microsoft Excel, Microsoft PowerPoint<br>
+          - <strong>Core Strengths:</strong> Problem-solving, analytical thinking, attention to detail, fast learner</p>
 
           <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Projects</h4>
-          <p style="margin-top:0.4rem;"><strong>Agro Equipment Rental System</strong> (02/2025 – 04/2025, Kottayam)<br>
-          • Designed and developed a platform connecting farmers with equipment owners, handling rental, availability, and pricing workflows.<br>
-          • Used SQL and programming skills to build and manage the core application data layer, improving accessibility and cost transparency.<br>
-          • Delivered a complete, working system end-to-end from requirement analysis to final implementation.</p>
+          <p style="margin-top:0.4rem;"><strong>Agro Equipment Rental System</strong> (02/2025 - 04/2025, Kottayam)<br>
+          - Designed and developed a platform connecting farmers with equipment owners, handling rental, availability, and pricing workflows.<br>
+          - Used SQL and programming skills to build and manage the core application data layer, improving accessibility and cost transparency.<br>
+          - Delivered a complete, working system end-to-end from requirement analysis to final implementation.</p>
 
           <p style="margin-top:0.6rem;"><strong>E-Auction of Cardamom</strong> (Personal Project)<br>
-          • Built an online e-auction platform enabling cardamom growers and traders to list produce, place bids, and complete transactions.<br>
-          • Designed the database to manage listings, bid records, and user data, ensuring accurate and reliable auction tracking.<br>
-          • Implemented bidding logic and real-time price updates using programming and SQL.</p>
+          - Built an online e-auction platform enabling cardamom growers and traders to list produce, place bids, and complete transactions.<br>
+          - Designed the database to manage listings, bid records, and user data, ensuring accurate and reliable auction tracking.<br>
+          - Implemented bidding logic and real-time price updates using programming and SQL.</p>
 
-          <p style="margin-top:0.6rem;"><strong>Buy & Sell Hub – OLX Clone</strong> (Personal Project)<br>
-          • Developed a full-featured online marketplace where users can list, browse, and search products, modelled on the OLX classifieds format.<br>
-          • Structured and managed product, category, and user data in SQL to support efficient search, filtering, and retrieval.<br>
-          • Implemented core features including listing creation, categorization, and search, with a focus on usability and data accuracy.</p>
+          <p style="margin-top:0.6rem;"><strong>Buy & Sell Hub - OLX Clone</strong> (Personal Project)<br>
+          - Developed a full-featured online marketplace where users can list, browse, and search products, modelled on the OLX classifieds format.<br>
+          - Structured and managed product, category, and user data in SQL to support efficient search, filtering, and retrieval.<br>
+          - Implemented core features including listing creation, categorization, and search, with a focus on usability and data accuracy.</p>
 
           <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Education</h4>
-          <p style="margin-top:0.4rem;">• <strong>Master of Computer Applications (MCA)</strong> [In Progress] — Marian College Kuttikkanam (Autonomous)<br>
-          • <strong>Bachelor of Computer Applications (BCA)</strong> [06/2022 – 05/2025] — M.E.S College, Erumely<br>
-          • <strong>Plus Two, Computer Science</strong> [06/2020 – 03/2022] — J.J Murphy HSS, Yendayar</p>
+          <p style="margin-top:0.4rem;">- <strong>Master of Computer Applications (MCA)</strong> [In Progress] - Marian College Kuttikkanam (Autonomous)<br>
+          - <strong>Bachelor of Computer Applications (BCA)</strong> [06/2022 - 05/2025] - M.E.S College, Erumely<br>
+          - <strong>Plus Two, Computer Science</strong> [06/2020 - 03/2022] - J.J Murphy HSS, Yendayar</p>
 
           <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Languages</h4>
-          <p style="margin-top:0.4rem;">English (Proficient) • Malayalam (Native) • Tamil (Intermediate)</p>
+          <p style="margin-top:0.4rem;">English (Proficient) | Malayalam (Native) | Tamil (Intermediate)</p>
 
           <div style="margin-top:1.5rem;text-align:center;">
-            <button class="btn btn-primary btn-sm" onclick="window.print()">🖨️ Print / Save as PDF</button>
+            <button class="btn btn-primary btn-sm" onclick="window.print()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              <span>Print / Save as PDF</span>
+            </button>
           </div>
         </div>
       `
@@ -802,7 +806,6 @@ class Message(models.Model):
    9. CONTACT ACTIONS & TOASTS
    ========================================================================== */
 function initContactActions() {
-  // Copy buttons
   document.querySelectorAll('[data-copy]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -816,7 +819,6 @@ function initContactActions() {
     });
   });
 
-  // Contact form submission
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
@@ -848,7 +850,14 @@ function showToast(message) {
 
   const toast = document.createElement('div');
   toast.className = 'toast';
-  toast.innerHTML = `<span>✓</span> <span>${message}</span>`;
+  toast.innerHTML = `
+    <span style="color:var(--accent-primary);display:inline-flex;align-items:center;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </span>
+    <span>${message}</span>
+  `;
   container.appendChild(toast);
 
   setTimeout(() => {
