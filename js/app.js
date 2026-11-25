@@ -732,57 +732,243 @@ class Message(models.Model):
     'resume-viewer': {
       title: 'Curriculum Vitae - Muhammed Raihan O.A',
       body: `
-        <div style="font-size:0.9rem;line-height:1.6;color:#e2e8f0;background:#0d111a;padding:1.5rem;border-radius:10px;border:1px solid rgba(255,255,255,0.1);">
-          <div style="text-align:center;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:1rem;margin-bottom:1rem;">
-            <h2 style="font-size:1.6rem;color:#fff;margin-bottom:0.25rem;">MUHAMMED RAIHAN O.A</h2>
-            <div style="color:#10b981;font-weight:600;font-size:1rem;margin-bottom:0.4rem;">Software Developer</div>
-            <div style="font-size:0.85rem;color:#94a3b8;">Kerala, India | +91 6282727399 | muhammedraihan6001@gmail.com</div>
-            <div style="font-size:0.82rem;color:#38bdf8;">linkedin.com/in/muhammed-raihan-oa-1a0810368</div>
+        <div id="resume-print-area" style="font-size:0.9rem;line-height:1.65;color:#e2e8f0;background:#0d111a;border-radius:10px;border:1px solid rgba(255,255,255,0.1);overflow:hidden;">
+
+          <!-- RESUME HEADER -->
+          <div style="background:linear-gradient(135deg,#0d2318 0%,#0f1e30 50%,#0d111a 100%);padding:2rem 2rem 1.5rem;border-bottom:2px solid rgba(16,185,129,0.3);display:flex;align-items:center;gap:1.75rem;flex-wrap:wrap;">
+            <div style="flex:1;min-width:220px;">
+              <h1 style="font-size:1.9rem;color:#fff;font-weight:800;letter-spacing:-0.02em;margin-bottom:0.25rem;">MUHAMMED RAIHAN O.A</h1>
+              <div style="color:#10b981;font-weight:700;font-size:1.05rem;margin-bottom:0.75rem;letter-spacing:0.04em;text-transform:uppercase;">Software Developer</div>
+              <div style="display:flex;flex-direction:column;gap:0.35rem;">
+                <span style="color:#94a3b8;font-size:0.82rem;display:flex;align-items:center;gap:0.5rem;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  +91 6282727399
+                </span>
+                <span style="color:#94a3b8;font-size:0.82rem;display:flex;align-items:center;gap:0.5rem;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  muhammedraihan6001@gmail.com
+                </span>
+                <span style="color:#38bdf8;font-size:0.82rem;display:flex;align-items:center;gap:0.5rem;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  linkedin.com/in/muhammed-raihan-oa-1a0810368
+                </span>
+                <span style="color:#94a3b8;font-size:0.82rem;display:flex;align-items:center;gap:0.5rem;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  Kerala, India
+                </span>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;">
+              <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:0.65rem 0.9rem;text-align:center;">
+                <div style="font-size:1.3rem;font-weight:800;color:#10b981;font-family:monospace;">4</div>
+                <div style="font-size:0.68rem;color:#64748b;text-transform:uppercase;letter-spacing:0.04em;">Languages</div>
+              </div>
+              <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:0.65rem 0.9rem;text-align:center;">
+                <div style="font-size:1.3rem;font-weight:800;color:#10b981;font-family:monospace;">3+</div>
+                <div style="font-size:0.68rem;color:#64748b;text-transform:uppercase;letter-spacing:0.04em;">Projects</div>
+              </div>
+              <div style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);border-radius:8px;padding:0.65rem 0.9rem;text-align:center;">
+                <div style="font-size:1.3rem;font-weight:800;color:#38bdf8;font-family:monospace;">MCA</div>
+                <div style="font-size:0.68rem;color:#64748b;text-transform:uppercase;letter-spacing:0.04em;">Pursuing</div>
+              </div>
+              <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;padding:0.65rem 0.9rem;text-align:center;">
+                <div style="font-size:1.3rem;font-weight:800;color:#f59e0b;font-family:monospace;">5+</div>
+                <div style="font-size:0.68rem;color:#64748b;text-transform:uppercase;letter-spacing:0.04em;">Years Study</div>
+              </div>
+            </div>
           </div>
 
-          <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Professional Summary</h4>
-          <p style="margin-top:0.4rem;">Detail-oriented MCA student and aspiring Software Developer with a strong foundation in programming, databases, and structured problem-solving. Proficient in Python, Java, C++, and SQL, with hands-on experience designing and building complete, database-driven applications from requirement analysis through to working implementation. A quick learner who enjoys turning requirements into clean, reliable software, seeking a software development role to grow and contribute in a real-world team.</p>
+          <!-- RESUME BODY -->
+          <div style="padding:1.75rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
 
-          <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Technical Skills</h4>
-          <p style="margin-top:0.4rem;">- <strong>Languages:</strong> Python, Java, C++, SQL<br>
-          - <strong>Development:</strong> Application development, database design, back-end logic, requirement analysis, end-to-end delivery<br>
-          - <strong>Databases:</strong> SQL querying, schema design, data modelling for application back-ends<br>
-          - <strong>Tools & Platforms:</strong> Linux, Power BI, Microsoft Excel, Microsoft PowerPoint<br>
-          - <strong>Core Strengths:</strong> Problem-solving, analytical thinking, attention to detail, fast learner</p>
+            <!-- LEFT COLUMN -->
+            <div>
+              <!-- Professional Summary -->
+              <div style="margin-bottom:1.5rem;">
+                <h3 style="font-size:0.8rem;font-weight:700;color:#10b981;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.4rem;margin-bottom:0.75rem;">Professional Summary</h3>
+                <p style="color:#cbd5e1;font-size:0.85rem;line-height:1.7;">Detail-oriented MCA student and aspiring Software Developer with a strong foundation in programming, databases, and structured problem-solving. Proficient in Python, Java, C++, and SQL, with hands-on experience designing and building complete, database-driven applications from requirement analysis through to working implementation. A quick learner committed to delivering clean, reliable software and seeking a developer role to grow within a real-world engineering team.</p>
+              </div>
 
-          <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Projects</h4>
-          <p style="margin-top:0.4rem;"><strong>Agro Equipment Rental System</strong> (02/2025 - 04/2025, Kottayam)<br>
-          - Designed and developed a platform connecting farmers with equipment owners, handling rental, availability, and pricing workflows.<br>
-          - Used SQL and programming skills to build and manage the core application data layer, improving accessibility and cost transparency.<br>
-          - Delivered a complete, working system end-to-end from requirement analysis to final implementation.</p>
+              <!-- Technical Skills -->
+              <div style="margin-bottom:1.5rem;">
+                <h3 style="font-size:0.8rem;font-weight:700;color:#10b981;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.4rem;margin-bottom:0.75rem;">Technical Skills</h3>
+                
+                <div style="margin-bottom:0.75rem;">
+                  <div style="font-size:0.78rem;font-weight:600;color:#f1f5f9;margin-bottom:0.3rem;">Programming Languages</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:0.35rem;">
+                    <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">Python</span>
+                    <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">Java</span>
+                    <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">C++</span>
+                    <span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);color:#10b981;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">SQL</span>
+                  </div>
+                </div>
 
-          <p style="margin-top:0.6rem;"><strong>E-Auction of Cardamom</strong> (Personal Project)<br>
-          - Built an online e-auction platform enabling cardamom growers and traders to list produce, place bids, and complete transactions.<br>
-          - Designed the database to manage listings, bid records, and user data, ensuring accurate and reliable auction tracking.<br>
-          - Implemented bidding logic and real-time price updates using programming and SQL.</p>
+                <div style="margin-bottom:0.75rem;">
+                  <div style="font-size:0.78rem;font-weight:600;color:#f1f5f9;margin-bottom:0.3rem;">Frameworks & Technologies</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:0.35rem;">
+                    <span style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);color:#38bdf8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">Django</span>
+                    <span style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);color:#38bdf8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">SQLite</span>
+                    <span style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);color:#38bdf8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">PostgreSQL</span>
+                    <span style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);color:#38bdf8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">MySQL</span>
+                    <span style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);color:#38bdf8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">HTML/CSS</span>
+                  </div>
+                </div>
 
-          <p style="margin-top:0.6rem;"><strong>Buy & Sell Hub - OLX Clone</strong> (Personal Project)<br>
-          - Developed a full-featured online marketplace where users can list, browse, and search products, modelled on the OLX classifieds format.<br>
-          - Structured and managed product, category, and user data in SQL to support efficient search, filtering, and retrieval.<br>
-          - Implemented core features including listing creation, categorization, and search, with a focus on usability and data accuracy.</p>
+                <div style="margin-bottom:0.75rem;">
+                  <div style="font-size:0.78rem;font-weight:600;color:#f1f5f9;margin-bottom:0.3rem;">Tools & Platforms</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:0.35rem;">
+                    <span style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);color:#f59e0b;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">Linux CLI</span>
+                    <span style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);color:#f59e0b;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">Power BI</span>
+                    <span style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);color:#f59e0b;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">MS Excel</span>
+                    <span style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);color:#f59e0b;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">Git</span>
+                    <span style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);color:#f59e0b;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;font-family:monospace;">VS Code</span>
+                  </div>
+                </div>
 
-          <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Education</h4>
-          <p style="margin-top:0.4rem;">- <strong>Master of Computer Applications (MCA)</strong> [In Progress] - Marian College Kuttikkanam (Autonomous)<br>
-          - <strong>Bachelor of Computer Applications (BCA)</strong> [06/2022 - 05/2025] - M.E.S College, Erumely<br>
-          - <strong>Plus Two, Computer Science</strong> [06/2020 - 03/2022] - J.J Murphy HSS, Yendayar</p>
+                <div>
+                  <div style="font-size:0.78rem;font-weight:600;color:#f1f5f9;margin-bottom:0.3rem;">Core Competencies</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:0.35rem;">
+                    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;">Relational Schema Design</span>
+                    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;">Back-End Development</span>
+                    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;">Requirement Analysis</span>
+                    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;">OOP Principles</span>
+                    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;">Data Modeling</span>
+                    <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#94a3b8;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.75rem;">Problem Solving</span>
+                  </div>
+                </div>
+              </div>
 
-          <h4 style="color:#10b981;text-transform:uppercase;font-size:0.85rem;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.25rem;margin-top:1rem;">Languages</h4>
-          <p style="margin-top:0.4rem;">English (Proficient) | Malayalam (Native) | Tamil (Intermediate)</p>
+              <!-- Languages Spoken -->
+              <div>
+                <h3 style="font-size:0.8rem;font-weight:700;color:#10b981;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.4rem;margin-bottom:0.75rem;">Languages Spoken</h3>
+                <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:0.85rem;color:#f1f5f9;font-weight:500;">English</span>
+                    <div style="display:flex;gap:3px;">
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.1);"></div>
+                    </div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:0.85rem;color:#f1f5f9;font-weight:500;">Malayalam</span>
+                    <div style="display:flex;gap:3px;">
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                    </div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:0.85rem;color:#f1f5f9;font-weight:500;">Tamil</span>
+                    <div style="display:flex;gap:3px;">
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:#10b981;box-shadow:0 0 5px rgba(16,185,129,0.5);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.1);"></div>
+                      <div style="width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.1);"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <div style="margin-top:1.5rem;text-align:center;">
-            <button class="btn btn-primary btn-sm" onclick="window.print()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;">
-                <polyline points="6 9 6 2 18 2 18 9"></polyline>
-                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                <rect x="6" y="14" width="12" height="8"></rect>
-              </svg>
+            <!-- RIGHT COLUMN -->
+            <div>
+              <!-- Education -->
+              <div style="margin-bottom:1.5rem;">
+                <h3 style="font-size:0.8rem;font-weight:700;color:#10b981;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.4rem;margin-bottom:0.75rem;">Education</h3>
+                
+                <div style="position:relative;padding-left:1.25rem;border-left:2px solid rgba(16,185,129,0.3);">
+                  
+                  <div style="margin-bottom:1.1rem;position:relative;">
+                    <div style="position:absolute;left:-1.37rem;top:0.3rem;width:12px;height:12px;border-radius:50%;background:#10b981;box-shadow:0 0 8px rgba(16,185,129,0.6);"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.25rem;">
+                      <span style="font-size:0.88rem;font-weight:700;color:#fff;">Master of Computer Applications (MCA)</span>
+                      <span style="font-size:0.72rem;color:#10b981;font-family:monospace;background:rgba(16,185,129,0.1);padding:0.1rem 0.5rem;border-radius:4px;border:1px solid rgba(16,185,129,0.3);">In Progress</span>
+                    </div>
+                    <div style="font-size:0.82rem;color:#38bdf8;margin-top:0.15rem;">Marian College Kuttikkanam (Autonomous)</div>
+                  </div>
+
+                  <div style="margin-bottom:1.1rem;position:relative;">
+                    <div style="position:absolute;left:-1.37rem;top:0.3rem;width:12px;height:12px;border-radius:50%;background:#38bdf8;box-shadow:0 0 8px rgba(56,189,248,0.6);"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.25rem;">
+                      <span style="font-size:0.88rem;font-weight:700;color:#fff;">Bachelor of Computer Applications (BCA)</span>
+                      <span style="font-size:0.72rem;color:#38bdf8;font-family:monospace;background:rgba(56,189,248,0.1);padding:0.1rem 0.5rem;border-radius:4px;border:1px solid rgba(56,189,248,0.25);">06/2022 - 05/2025</span>
+                    </div>
+                    <div style="font-size:0.82rem;color:#38bdf8;margin-top:0.15rem;">M.E.S College, Erumely</div>
+                  </div>
+
+                  <div style="position:relative;">
+                    <div style="position:absolute;left:-1.37rem;top:0.3rem;width:12px;height:12px;border-radius:50%;background:#64748b;box-shadow:0 0 8px rgba(100,116,139,0.4);"></div>
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.25rem;">
+                      <span style="font-size:0.88rem;font-weight:700;color:#fff;">Plus Two, Computer Science</span>
+                      <span style="font-size:0.72rem;color:#94a3b8;font-family:monospace;background:rgba(255,255,255,0.05);padding:0.1rem 0.5rem;border-radius:4px;border:1px solid rgba(255,255,255,0.1);">06/2020 - 03/2022</span>
+                    </div>
+                    <div style="font-size:0.82rem;color:#64748b;margin-top:0.15rem;">J.J Murphy HSS, Yendayar</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Projects -->
+              <div>
+                <h3 style="font-size:0.8rem;font-weight:700;color:#10b981;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(16,185,129,0.3);padding-bottom:0.4rem;margin-bottom:0.75rem;">Projects</h3>
+
+                <div style="margin-bottom:1.1rem;padding:0.9rem;background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.15);border-radius:8px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.25rem;margin-bottom:0.3rem;">
+                    <span style="font-size:0.88rem;font-weight:700;color:#fff;">Agro Equipment Rental System</span>
+                    <span style="font-size:0.7rem;color:#10b981;font-family:monospace;">02/2025 - 04/2025</span>
+                  </div>
+                  <div style="font-size:0.78rem;color:#64748b;margin-bottom:0.5rem;">Python | SQL Data Layer | Schema Design | Linux</div>
+                  <ul style="font-size:0.8rem;color:#94a3b8;padding-left:1rem;margin:0;line-height:1.6;">
+                    <li>Connecting farmers with equipment owners with rental calendars and transparent pricing</li>
+                    <li>Built complete SQL data layer with conflict-prevention booking constraints</li>
+                    <li>End-to-end delivery from field requirement analysis to working system</li>
+                  </ul>
+                </div>
+
+                <div style="margin-bottom:1.1rem;padding:0.9rem;background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:8px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.25rem;margin-bottom:0.3rem;">
+                    <span style="font-size:0.88rem;font-weight:700;color:#fff;">E-Auction of Cardamom</span>
+                    <span style="font-size:0.7rem;color:#38bdf8;font-family:monospace;">Personal Project</span>
+                  </div>
+                  <div style="font-size:0.78rem;color:#64748b;margin-bottom:0.5rem;">Python | Real-Time Logic | SQL Querying | Bidding Engine</div>
+                  <ul style="font-size:0.8rem;color:#94a3b8;padding-left:1rem;margin:0;line-height:1.6;">
+                    <li>Real-time commodity auction with dynamic bid ladders and trade settlement</li>
+                    <li>Relational audit trail tracking every bid timestamp and trader token</li>
+                    <li>Anti-sniping minimum increment logic (INR 20/kg enforced)</li>
+                  </ul>
+                </div>
+
+                <div style="padding:0.9rem;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:8px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.25rem;margin-bottom:0.3rem;">
+                    <span style="font-size:0.88rem;font-weight:700;color:#fff;">Buy & Sell Hub - OLX Clone</span>
+                    <span style="font-size:0.7rem;color:#f59e0b;font-family:monospace;">Personal Project</span>
+                  </div>
+                  <div style="font-size:0.78rem;color:#64748b;margin-bottom:0.5rem;">Django | Python | SQLite | Direct Chat Engine</div>
+                  <ul style="font-size:0.8rem;color:#94a3b8;padding-left:1rem;margin:0;line-height:1.6;">
+                    <li>Full classifieds marketplace with multi-image listings and buyer-seller chat</li>
+                    <li>Auto-slugified SEO routing and normalized relational schema</li>
+                    <li>Optimized SQL indexing for rapid categorical and location filtering</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRINT ACTIONS -->
+          <div style="padding:1rem 2rem 1.5rem;border-top:1px solid rgba(255,255,255,0.08);display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+            <button class="btn btn-primary btn-sm" onclick="window.print();" style="display:flex;align-items:center;gap:0.5rem;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
               <span>Print / Save as PDF</span>
             </button>
+            <a href="mailto:muhammedraihan6001@gmail.com?subject=Regarding Software Developer Role" class="btn btn-secondary btn-sm" style="display:flex;align-items:center;gap:0.5rem;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>Hire Me</span>
+            </a>
           </div>
         </div>
       `
