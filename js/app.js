@@ -5,6 +5,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initNavigation();
   initParticles();
   initTypewriter();
   initThemeSwitcher();
@@ -17,11 +18,44 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
+   RESPONSIVE NAVIGATION
+   ========================================================================== */
+function initNavigation() {
+  const menuButton = document.querySelector('.mobile-menu-btn');
+  const nav = document.querySelector('.nav-container');
+  const navLinks = document.querySelectorAll('.nav-link');
+  if (!menuButton || !nav) return;
+
+  function closeMenu() {
+    nav.classList.remove('menu-open');
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.setAttribute('aria-label', 'Open navigation menu');
+  }
+
+  menuButton.addEventListener('click', () => {
+    const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+    nav.classList.toggle('menu-open', !isOpen);
+    menuButton.setAttribute('aria-expanded', String(!isOpen));
+    menuButton.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+  });
+
+  navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeMenu();
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1100) closeMenu();
+  });
+}
+
+/* ==========================================================================
    1. CANVAS PARTICLES / CONSTELLATION BACKGROUND
    ========================================================================== */
 function initParticles() {
   const canvas = document.getElementById('canvas-particles');
-  if (!canvas) return;
+  if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const ctx = canvas.getContext('2d');
 
   let width = (canvas.width = window.innerWidth);
@@ -127,6 +161,11 @@ function initTypewriter() {
     'MCA Scholar @ Marian College',
     'Backend Logic & Clean Code Builder'
   ];
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = roles[0];
+    return;
+  }
 
   let roleIdx = 0;
   let charIdx = 0;

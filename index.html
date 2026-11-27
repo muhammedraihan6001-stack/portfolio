@@ -31,7 +31,7 @@
           </div>
         </a>
 
-        <ul class="nav-links">
+        <ul id="primary-navigation" class="nav-links">
           <li><a href="#about" class="nav-link">About</a></li>
           <li><a href="#terminal" class="nav-link">CLI Shell</a></li>
           <li><a href="#projects" class="nav-link">Projects</a></li>
@@ -42,6 +42,18 @@
         </ul>
 
         <div class="nav-actions">
+          <button class="mobile-menu-btn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
+            <svg class="menu-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="4" y1="6" x2="20" y2="6"></line>
+              <line x1="4" y1="12" x2="20" y2="12"></line>
+              <line x1="4" y1="18" x2="20" y2="18"></line>
+            </svg>
+            <svg class="menu-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
           <!-- Theme Palette Selector -->
           <div class="theme-picker" title="Switch Theme Accent">
             <div class="theme-dot emerald active" data-theme="emerald" title="Emerald Matrix"></div>
@@ -244,14 +256,14 @@
             </p>
           </div>
 
-          <div class="glass-card" style="padding:2.5rem;max-width:980px;margin:0 auto;">
+          <div class="glass-card about-card">
             <p style="font-size:1.1rem;line-height:1.8;color:#cbd5e1;margin-bottom:1.5rem;">
               "I am an MCA scholar and software engineer with a deep passion for building practical, 
               scalable systems. Rather than surface-level scripts, my work focuses on <strong>end-to-end execution</strong>: 
               analyzing real business needs, designing normalized SQL databases, writing resilient backend logic in Python and Java, 
               and delivering responsive applications users can rely on."
             </p>
-            <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border-color);">
+            <div class="about-principles-grid">
               <div>
                 <h4 style="color:var(--accent-primary);margin-bottom:0.35rem;">Structured Thinking</h4>
                 <p style="font-size:0.88rem;color:var(--text-muted);">Breaking down intricate business rules into elegant relational database structures.</p>

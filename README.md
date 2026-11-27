@@ -7,6 +7,7 @@ A modern, high-performance personal portfolio built for **Muhammed Raihan O.A**,
 ## 🌟 Highlights & Key Features
 
 - **Cybernetic Obsidian & Glassmorphism Aesthetic:** Premium dark-themed visual design tailored around Raihan's personal branding, with smooth micro-interactions, responsive grid layout, and glowing neon accents.
+- **Responsive, accessible navigation:** Fluid layouts for phones, tablets, and laptops, with a keyboard-friendly mobile menu and reduced-motion support.
 - **Interactive Developer Shell ("Raihan CLI"):** A fully functional terminal emulator in the browser. Supports commands like `about`, `skills`, `projects`, `schema`, `education`, `contact`, `matrix` (interactive matrix rain easter egg), and `clear`.
 - **Live SQL Query & Schema Simulator:** Interactive sandbox demonstrating Raihan's database expertise. Runs queries against datasets modeled on his actual projects (Cardamom Auctions, Agro Equipment, Marketplace) with simulated execution metrics.
 - **Deep-Dive System Architecture Modals:** Detailed technical modals showcasing relational schemas, entity diagrams, bidding state machines, and authentic Django model architecture.
